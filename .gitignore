@@ -1,3 +1,3 @@
 CONFIG.toml
 venv/
-userbot.session
+*.session
