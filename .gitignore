@@ -1,2 +1,3 @@
 CONFIG.toml
 venv/
+*.session
