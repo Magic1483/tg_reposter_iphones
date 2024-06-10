@@ -45,22 +45,32 @@ def get_anchor(text) -> str:
 
 
 def handle_prices(text) -> str:
-    pattern = r'(\w+)\s*-\s*(\d+\.\d+)'
-
+    
+    pattern = r'(\w+)\s*-\s*(\d+\.\d\d\d)'
+    res = ''
     matches = re.findall(pattern, text)
 
+    for i in text.split('\n'):
+        matches = re.findall(pattern, i)
+        if len(matches)>0:
+            new_price = str(int(matches[0][1].replace('.',''))*10)
+            
+            new_price = new_price[:-3] + "." + new_price[-3:]
+            print(f" Extracted number: {matches[0][1]} new price {new_price}")
+            i = i.replace(matches[0][1],new_price)
+        
+        res+=f"**{i}**\n"
     
+    # for match in matches:
+    #     new_price = str(int(match[1].replace('.',''))*10)
+        
+    #     new_price = new_price[:-3] + "." + new_price[-3:]
+    #     print(f" Extracted number: {match[1]} new price {new_price}")
+    #     #!handle prices
+    #     text = text.replace(match[1],new_price)
     
-    for match in matches:
-        new_price = str(int(match[1].replace('.',''))*10)
-        new_price = new_price[:-3] + "." +  new_price[-3:]
-        # print(f" Extracted number: {match[1]} new price {new_price}")
-
-        #!handle prices
-        text = text.replace(match[1],str(new_price))
-    
-    # print(text)
-    return text
+    # print(res)
+    return res
 
 def create_product_dict():
     global PRODUCTS
