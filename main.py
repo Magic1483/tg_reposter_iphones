@@ -60,7 +60,7 @@ def handle_prices(text) -> str:
 
             #! ----change price----
             new_price = new_price[:-3] + "." + new_price[-3:]
-            print(f" Extracted number: {matches[0][1]} new price {new_price}")
+            # print(f" Extracted number: {matches[0][1]} new price {new_price}")
             i = i.replace(matches[0][1],new_price)
         
         res+=f"**{i}**\n"
