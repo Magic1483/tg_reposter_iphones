@@ -56,7 +56,16 @@ def handle_prices(text) -> str:
             new_price = int(matches[0][1].replace('.',''))
             #! ----change price----
 
-            new_price = str(new_price*10)
+            if  new_price  < 70000:
+                new_price = str(new_price+4000)#0--70k +4k
+            elif new_price < 90000:
+                new_price = str(new_price+5000)#70--90 +5k
+            elif new_price < 110000:
+                new_price = str(new_price+6000)#90--110-- +6k
+            elif new_price < 130000:
+                new_price = str(new_price+7000)#110--130 +7k
+            else:
+                new_price = str(new_price+10000)#130--> +10k
 
             #! ----change price----
             new_price = new_price[:-3] + "." + new_price[-3:]
