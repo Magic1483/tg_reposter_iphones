@@ -73,7 +73,7 @@ def handle_prices(text) -> str:
             i = i.replace(matches[0][1],new_price)
         
         res+=f"**{i}**\n"
-    
+        
     # for match in matches:
     #     new_price = str(int(match[1].replace('.',''))*10)
         
@@ -87,13 +87,14 @@ def handle_prices(text) -> str:
 
 def create_product_dict():
     global PRODUCTS
-    f = open('product_list.txt',encoding='utf-8').readlines()
-    for i in f:
-        PRODUCTS.append(i.replace(' ','_').replace('\n',''))
+    js = json.load(open('messages.json',encoding='utf-8'))
+    for i in js:
+        # print(i)
+        PRODUCTS.append(i)
 
 
 
-async def main(msg_id,app):
+async def get_product_msg(msg_id,app):
         async for msg in  app.get_chat_history(CONFIG['target_chat_id']):
             if msg.id == msg_id:
                 print('msg_edit_date:',msg.edit_date,'today',formatted_date,'date equal:',(formatted_date in str(msg.edit_date)) or (formatted_date_msg in msg.text))
@@ -119,7 +120,9 @@ async def get_keyboard(word,app) -> int:
                             # print('msg_id:',str(j.url).split('/')[-1])
                             return int(str(j.url).split('/')[-1])
                     
-
+def get_msg_ids(word):
+    js = json.load(open('messages.json',encoding='utf-8'))
+    return js[word]
 
 @app.on_message()
 async def message_handler(client,message):
@@ -137,10 +140,11 @@ async def message_handler(client,message):
 
             
             if message.text.replace('/','',1) in PRODUCTS:
-                print('work',message.text.replace('/','',1).replace('_',' '))
-                msg_ig = await get_keyboard(message.text.replace('/','',1).replace('_',' '),app)
-                print('msg_id',msg_ig)
-                await main(msg_ig,app)
+                # print('work',message.text.replace('/','',1).replace('_',' '))
+                # msg_ig = await get_keyboard(message.text.replace('/','',1).replace('_',' '),app)
+                for i in get_msg_ids(message.text.replace('/','',1)):
+                    print('msg_id',i)
+                    await get_product_msg(i,app)
     except:
         # traceback.print_exc()
         pass
