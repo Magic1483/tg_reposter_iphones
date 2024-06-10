@@ -1,4 +1,8 @@
 
+f = open('formula.py').readlines()
 
-s = '790000'
-print(s[:-3]+'.'+s[-3:])
+new = input()
+
+
+    
+print(f[0]+'\t'+new)
