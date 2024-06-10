@@ -53,10 +53,10 @@ def handle_prices(text) -> str:
     for i in text.split('\n'):
         matches = re.findall(pattern, i)
         if len(matches)>0:
-            new_price = str(int(matches[0][1].replace('.','')))
+            new_price = int(matches[0][1].replace('.',''))
             #! ----change price----
 
-            new_price = new_price*10
+            new_price = str(new_price*10)
 
             #! ----change price----
             new_price = new_price[:-3] + "." + new_price[-3:]
