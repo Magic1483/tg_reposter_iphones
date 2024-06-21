@@ -1,6 +1,9 @@
+#COPY THIS CONFIG TO ROOT FOLDER AND RENAME TO "CONFIG.toml"
 target_chat_id = -1001291236326
 userbot_chat_id = 10
 
 #https://my.telegram.org/apps
 api_id=1111
 api_hash ='api_hash'
+
+date_equal = false# true or false
