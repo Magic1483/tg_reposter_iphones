@@ -93,6 +93,9 @@ def create_product_dict():
         PRODUCTS.append(i)
 
 def CheckDate(msg,msg_id):
+    if msg_id!=msg.id:
+        return False
+    
     if CONFIG['date_equal'] == True:
         res = ((formatted_date in str(msg.edit_date)) or (formatted_date_msg in msg.text))  and msg.id==msg_id
         print('date equal',res)
