@@ -92,19 +92,26 @@ def create_product_dict():
         # print(i)
         PRODUCTS.append(i)
 
+def CheckDate(msg,msg_id):
+    if CONFIG['date_equal'] == True:
+        res = ((formatted_date in str(msg.edit_date)) or (formatted_date_msg in msg.text))  and msg.id==msg_id
+        print('date equal',res)
+        return res
+
+    return True
+
 
 
 async def get_product_msg(msg_id,app):
         async for msg in  app.get_chat_history(CONFIG['target_chat_id']):
-            if msg.id == msg_id:
-                print('msg_edit_date:',msg.edit_date,'today',formatted_date,'date equal:',(formatted_date in str(msg.edit_date)) or (formatted_date_msg in msg.text))
             if msg.text!=None:
-                if (CONFIG['date_equal']==True and  ((formatted_date in str(msg.edit_date)) or (formatted_date_msg in msg.text)) ) and msg.id==msg_id:
+                if CheckDate(msg,msg_id):
                     text = msg.text
                     answer = get_anchor(text)
                     answer = handle_prices(answer)
                     # print('answer',answer)
                     await app.send_message(CONFIG['userbot_chat_id'],answer)
+
 
 
 async def get_keyboard(word,app) -> int:
@@ -150,6 +157,9 @@ async def message_handler(client,message):
         pass
 
 if __name__ == '__main__':
-    print('Date equal state',CONFIG['date_equal'])
+    print('--------------------------------------------')
+    print('| Date equal state',CONFIG['date_equal'],' |')
+    print('--------------------------------------------')
+
     create_product_dict()
     app.run()
