@@ -99,7 +99,7 @@ async def get_product_msg(msg_id,app):
             if msg.id == msg_id:
                 print('msg_edit_date:',msg.edit_date,'today',formatted_date,'date equal:',(formatted_date in str(msg.edit_date)) or (formatted_date_msg in msg.text))
             if msg.text!=None:
-                if ((formatted_date in str(msg.edit_date)) or (formatted_date_msg in msg.text)) and msg.id==msg_id:
+                if (CONFIG['date_equal']==True and  ((formatted_date in str(msg.edit_date)) or (formatted_date_msg in msg.text)) ) and msg.id==msg_id:
                     text = msg.text
                     answer = get_anchor(text)
                     answer = handle_prices(answer)
@@ -150,5 +150,6 @@ async def message_handler(client,message):
         pass
 
 if __name__ == '__main__':
+    print('Date equal state',CONFIG['date_equal'])
     create_product_dict()
     app.run()

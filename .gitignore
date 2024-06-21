@@ -1,3 +1,4 @@
 CONFIG.toml
 venv/
 *.session
+test.py
